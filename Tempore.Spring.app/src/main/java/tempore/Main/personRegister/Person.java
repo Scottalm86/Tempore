@@ -1,16 +1,15 @@
 package tempore.Main.personRegister;
-import javax.persistence.*;
 
-@Entity
+
 public class Person {
-	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	public Long Id;
+	
+	public String Id;
 	public String personName;
 	public String personAdress;
 	
 	protected Person() {}
-	public Person(String personName, String personAdress) {
+	public Person(String Id,String personName, String personAdress) {
+		this.Id=Id;
 		this.personName = personName;
 		this.personAdress = personAdress;
 	}
@@ -25,6 +24,12 @@ public class Person {
 	}
 	public void setPersonAdress(String personAdress) {
 		this.personAdress = personAdress;
+	}
+	public String getId() {
+		return Id;
+	}
+	public void setId(String id) {
+		Id = id;
 	}
 	
 }
