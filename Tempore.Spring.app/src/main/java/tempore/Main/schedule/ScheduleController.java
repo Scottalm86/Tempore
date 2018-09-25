@@ -1,4 +1,4 @@
-package tempore.schedule;
+package tempore.Main.schedule;
 
 public class ScheduleController {
 

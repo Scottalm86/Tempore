@@ -1,4 +1,4 @@
-package tempore.GeoLocation;
+package tempore.Main.GeoLocation;
 
 public class GeoController {
 
