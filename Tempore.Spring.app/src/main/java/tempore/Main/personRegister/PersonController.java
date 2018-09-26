@@ -25,9 +25,17 @@ public class PersonController {
 	public Person getPerson(@PathVariable String Id) {
 		return personService.getPerson(Id);
 	}
+	@RequestMapping(method=RequestMethod.DELETE, value="/tja/{Id}")
+	public void deletePerson(@PathVariable String Id) {
+		personService.deletePerson(Id);
+	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/tja")
 	public void addPerson(@RequestBody Person person) {
-		PersonService.addPerson(person);
+		personService.addPerson(person);
+	}
+	@RequestMapping(method=RequestMethod.PUT, value="/tja/{Id}")
+	public void updatePerson(@RequestBody Person person,@PathVariable String Id) {
+		personService.updatePerson(Id, person);
 	}
 }

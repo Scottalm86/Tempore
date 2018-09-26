@@ -9,7 +9,7 @@ public class Person {
 	
 	protected Person() {}
 	public Person(String Id,String personName, String personAdress) {
-		this.Id=Id;
+		this.Id = Id;
 		this.personName = personName;
 		this.personAdress = personAdress;
 	}
@@ -31,5 +31,6 @@ public class Person {
 	public void setId(String id) {
 		Id = id;
 	}
+
 	
 }
