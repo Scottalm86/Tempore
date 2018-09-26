@@ -1,6 +1,7 @@
 package tempore.Main.personRegister;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,12 @@ public class PersonController {
 	}
 	
 	@RequestMapping("/tja/{Id}")
-	public Person getPerson(@PathVariable String Id) {
-		return personService.getPerson(Id);
+	public Optional<Person> getPerson(@PathVariable Long id) {
+		return personService.getPerson(id);
 	}
 	@RequestMapping(method=RequestMethod.DELETE, value="/tja/{Id}")
-	public void deletePerson(@PathVariable String Id) {
-		personService.deletePerson(Id);
+	public void deletePerson(@PathVariable Long id) {
+		personService.deletePerson(id);
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="/tja")
@@ -35,7 +36,7 @@ public class PersonController {
 		personService.addPerson(person);
 	}
 	@RequestMapping(method=RequestMethod.PUT, value="/tja/{Id}")
-	public void updatePerson(@RequestBody Person person,@PathVariable String Id) {
-		personService.updatePerson(Id, person);
+	public void updatePerson(@RequestBody Person person,@PathVariable Long id) {
+		personService.updatePerson(id, person);
 	}
 }

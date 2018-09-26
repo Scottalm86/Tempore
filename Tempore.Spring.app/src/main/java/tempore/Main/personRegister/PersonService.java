@@ -1,42 +1,42 @@
 package tempore.Main.personRegister;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PersonService {
 	
-	private List<Person> persons = new ArrayList<>(Arrays.asList(
-			new Person("Person", "Scott", "test"),
-			new Person("Person2", "jocke", "test3")
-			
-			));
-	public List<Person> getAllPerson(){
-		return persons;
-	}
+	@Autowired
+	private PersonRepository personRepository;
 	
-	public Person getPerson(String Id) {
-		return persons.stream().filter(p -> p.getId().equals(Id)).findFirst().get();
+//Get all persons in DB 
+	public List<Person> getAllPerson(){
+		List<Person> persons = new ArrayList<>();	
+		personRepository.findAll()
+		.forEach(persons::add);
+		return persons;
+		}
+	
+//Find the Person with ID in DB
+	public Optional<Person> getPerson(Long id) {
+		return personRepository.findById(id);
 		
 	}
-
+//Add a Person to DB
 	public void addPerson(Person person) {
-		persons.add(person);
+		personRepository.save(person);
 	}
-	public void updatePerson(String id, Person person) {
-		for(int i=0; i<persons.size(); i++) {
-			Person p = persons.get(i);
-			if(p.getId().equals(id)) {
-				persons.set(i, person);
-				return;
-			}
-		}
+//Update a Person in DB
+	public void updatePerson(Long id, Person person) {
+		personRepository.save(person);
 	}
-
-	public void deletePerson(String Id) {
-		persons.removeIf(p-> p.getId().equals(Id));
+//Delete a Person from DB
+	public void deletePerson(Long id) {
+		personRepository.deleteById(id);
 	}
 
 }
