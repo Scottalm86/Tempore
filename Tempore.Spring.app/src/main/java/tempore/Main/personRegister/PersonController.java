@@ -22,11 +22,11 @@ public class PersonController {
 		return personService.getAllPerson();
 	}
 	
-	@RequestMapping("/tja/{Id}")
+	@RequestMapping("/tja/{id}")
 	public Optional<Person> getPerson(@PathVariable Long id) {
 		return personService.getPerson(id);
 	}
-	@RequestMapping(method=RequestMethod.DELETE, value="/tja/{Id}")
+	@RequestMapping(method=RequestMethod.DELETE, value="/tja/{id}")
 	public void deletePerson(@PathVariable Long id) {
 		personService.deletePerson(id);
 	}
@@ -35,7 +35,7 @@ public class PersonController {
 	public void addPerson(@RequestBody Person person) {
 		personService.addPerson(person);
 	}
-	@RequestMapping(method=RequestMethod.PUT, value="/tja/{Id}")
+	@RequestMapping(method=RequestMethod.PUT, value="/tja/{id}")
 	public void updatePerson(@RequestBody Person person,@PathVariable Long id) {
 		personService.updatePerson(id, person);
 	}

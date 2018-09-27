@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Wed Sep 26 22:53:20 CEST 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-17a8-57a5-000000de2ca8 
-on database directory memory:C:\Users\Scottalm\git\Tempore\Tempore.Spring.app\testdb with class loader sun.misc.Launcher$AppClassLoader@1d16e93 
-Loaded from file:/C:/Users/Scottalm/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+Thu Sep 27 09:40:58 CEST 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-19f9-4296-00000f3b0d40 
+on database directory memory:D:\spring.git\Tempore\Tempore.Spring.app\testdb with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/Elev/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_25-b18
-user.dir=C:\Users\Scottalm\git\Tempore\Tempore.Spring.app
-os.name=Windows 8.1
-os.arch=x86
-os.version=6.3
+java.runtime.version=1.8.0_181-b13
+user.dir=D:\spring.git\Tempore\Tempore.Spring.app
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
