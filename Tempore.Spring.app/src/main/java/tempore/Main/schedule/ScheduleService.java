@@ -2,7 +2,6 @@ package tempore.Main.schedule;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +21,8 @@ public class ScheduleService {
 		}
 	
 //Find the Person with ID in DB
-	public Optional<Schedule> getSchedule(Long scheduleId) {
-		return scheduleRepository.findById(scheduleId);
+	public List<Schedule> getSchedule(Long scheduleId) {
+		return scheduleRepository.findByPersonId(scheduleId);
 		
 	}
 //Add a Person to DB

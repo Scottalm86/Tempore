@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ScheduleRepository extends CrudRepository <Schedule, Long>{
 	
-	public List<Schedule> findByPersonId(Long persoId);
+	public List<Schedule> findByPersonId(Long personId);
 
 }
