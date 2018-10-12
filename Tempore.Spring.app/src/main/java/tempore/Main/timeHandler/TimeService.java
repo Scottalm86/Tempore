@@ -1,4 +1,4 @@
-package tempore.Main.timeHandler;
+/*package tempore.Main.timeHandler;
 
 
 //Not done. Need Help.
@@ -16,5 +16,10 @@ public class TimeService {
 				Object.class);
 		return response;
 	}
-	
+	public Object getLocation() {
+		
+		return null;
+		
+	}
 }
+*/
