@@ -1,4 +1,4 @@
-/*package tempore.Main.timeHandler;
+package tempore.Main.timeHandler;
 import java.lang.*;
 import tempore.Main.personRegister.*;
 public interface TimeInterface throws TimeoutExeption   {
@@ -10,4 +10,3 @@ public interface TimeInterface throws TimeoutExeption   {
 	 
 	
 }
-*/
