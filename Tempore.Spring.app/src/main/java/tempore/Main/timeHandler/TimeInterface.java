@@ -1,6 +1,6 @@
 package tempore.Main.timeHandler;
 
+public interface TimeInterface   {
 
-public class TimeController {
-
+	
 }
