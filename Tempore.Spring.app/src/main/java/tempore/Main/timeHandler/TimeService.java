@@ -23,7 +23,6 @@ public class TimeService implements TimeInterface {
 	RestTemplate restTemplate = new RestTemplate();
 	public SlResponse findTravel(Date starTime, Location startLocation, Location endLocation) 
 		throws TimeoutExceptions{
-		
 		ResponseEntity<SlResponse> slResp = getResponse();
 		return slResp.getBody();		
 	}

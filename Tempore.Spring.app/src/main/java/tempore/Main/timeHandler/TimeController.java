@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import tempore.Main.timeHandler.model.Location;
+
 @RestController
 public class TimeController {
 
@@ -12,8 +14,9 @@ public class TimeController {
 		private TimeService timeService;
 		
 		@RequestMapping("/tja/time")
-		public Object getResponse() {
-			return timeService.getResponse();
+		public SlResponse getResponse() throws TimeoutExceptions {
+				return timeService.findTravel(null, null, null);
+			
 		}
 	
 }
