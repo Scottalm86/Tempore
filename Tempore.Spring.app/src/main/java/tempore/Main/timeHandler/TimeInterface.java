@@ -1,8 +1,9 @@
 package tempore.Main.timeHandler;
-import java.lang.*;
+import java.util.Date;
+import tempore.Main.timeHandler.model.Location;
 
 
 public interface TimeInterface   {
 	
-	void Location() throws TimeoutExceptions;
+	SlResponse findTravel(Date startTime, Location start, Location End) throws TimeoutExceptions;
 }
