@@ -12,6 +12,11 @@ import tempore.Main.timeHandler.model.Trip;
 @Setter
 public class SlResponse {
 	public Trip trip;
+
+	public Trip setTrip(SlResponse body) {
+		return trip;
+		
+	}
 	
 	
 }

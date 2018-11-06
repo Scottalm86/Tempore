@@ -16,17 +16,21 @@ public class TimeService implements TimeInterface {
 	private final static Object SL_URL = 
 			"https://api.sl.se/api2/TravelplannerV3/trip.json?key=aa704a5c893c433f9c0a38c00371a300";
 	private final static String SL_LANG = "&sv";
-	public String Orgin_ID_Latitude ="&originId=";
+	public String Orgin_ID_Latitude ="&originId=3814";
 	public String Orgin_ID_Num;
 	public String Destination_ID_Parmeter ="&destId=1319";
 	public String Dest_Num;
 	RestTemplate restTemplate = new RestTemplate();
+	@Override
 	public SlResponse findTravel(Date starTime, Location startLocation, Location endLocation) 
 		throws TimeoutExceptions{
-		ResponseEntity<SlResponse> slResp = getResponse();
-		return slResp.getBody();		
+		ResponseEntity<SlResponse> slResp = getResponse(startLocation,endLocation);
+		SlResponse retrunResp = new SlResponse();
+		retrunResp.setTrip(slResp.getBody());
+		retrunResp.getTrip();
+		return retrunResp;		
 	}
-	protected ResponseEntity<SlResponse> getResponse() {
+	protected ResponseEntity<SlResponse> getResponse(Location start, Location end) {
 		ResponseEntity<SlResponse> response = restTemplate.
 				getForEntity(SL_URL+SL_LANG+Orgin_ID_Latitude+Destination_ID_Parmeter/*Time_Parmeter*/,
 				SlResponse.class);
@@ -38,6 +42,7 @@ public class TimeService implements TimeInterface {
 	protected void setup() {
 		
 	}
+	
 	
 	
 }

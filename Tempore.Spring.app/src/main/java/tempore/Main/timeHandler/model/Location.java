@@ -8,6 +8,8 @@ import lombok.*;
 @Getter
 @Setter
 public class Location {
+	public int start;
+	public int end;
 	public String name;
 	public String time;
 	public String date;
