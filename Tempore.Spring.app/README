@@ -1,0 +1,25 @@
+Tempore version 1.3.5-Snapshot
+
+Funktioner
+
++Enkel Databas för personer
++Varje person har unikt ID
++Lägga till person
++Uppdaterar person
++Ta bort person
++Hämta person
++Sl tider
++Utskrivning av avgångar
++Allt finns i json format
+
+Framtida fuktioner som jag ska lägga till
+
+-Handtering av schema för varje person
+-Unika tider för varje peron för SL
+-hämtar personens plats och lägger till det i databasen
+-Hämtar endas den viktiga informationen från sl
+m.m
+
+ 
+
+ 

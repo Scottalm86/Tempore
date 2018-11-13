@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri Nov 09 11:20:07 CET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0166-f7fc-6dba-00000037a6c8 
+on database directory memory:C:\Users\Scott\Documents\Tempore\Tempore\Tempore.Spring.app\target\testdb with class loader org.springframework.boot.loader.LaunchedURLClassLoader@5d6d97 
+Loaded from jar:file:/C:/Users/Scott/Documents/Tempore/Tempore/Tempore.Spring.app/target/Tempore.Spring.app-1.3.5-SNAPSHOT.jar!/BOOT-INF/lib/derby-10.14.2.0.jar!/
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-b13
+user.dir=C:\Users\Scott\Documents\Tempore\Tempore\Tempore.Spring.app\target
+os.name=Windows 10
+os.arch=x86
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

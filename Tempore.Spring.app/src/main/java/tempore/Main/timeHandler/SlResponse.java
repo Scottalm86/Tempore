@@ -1,6 +1,8 @@
 package tempore.Main.timeHandler;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +13,10 @@ import tempore.Main.timeHandler.model.Trip;
 @Getter
 @Setter
 public class SlResponse {
+	
+	
+	
+	
 	public Trip trip;
 
 	public Trip setTrip(SlResponse body) {
