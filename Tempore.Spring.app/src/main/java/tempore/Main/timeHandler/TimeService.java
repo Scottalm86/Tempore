@@ -34,7 +34,7 @@ public class TimeService implements TimeInterface {
 		//ObjectMapper objectMapper = new ObjectMapper();
 		ResponseEntity<SlResponse> slResp = getResponse(startLocation,endLocation);
 		SlResponse retrunResp = new SlResponse();
-		retrunResp.setTrip(slResp.getBody());
+		retrunResp.setTrip(slResp.getBody());//Problem
 		retrunResp.getTrip();
 		return retrunResp;		
 	}
