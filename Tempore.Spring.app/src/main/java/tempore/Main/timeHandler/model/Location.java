@@ -1,14 +1,15 @@
 package tempore.Main.timeHandler.model;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.*;
 @JsonIgnoreProperties(ignoreUnknown=true)
-
 @NoArgsConstructor
 @Getter
 @Setter
-public class Location {
+public class Location implements Serializable{
 	
 	public int start;
 	public int end;
