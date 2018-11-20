@@ -2,10 +2,11 @@ package tempore.Main.timeHandler;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -68,5 +69,5 @@ Scott Alm [10:17 AM]
 "mainMastId": "A=1@O=Centralen (Stockholm)@X=18057657@Y=59331134@U=74@L=300101002@",
 "mainMastExtId": "300101002"
 },	*/
-	public String Trip;																											
+	public ArrayList<JsonNode> Trip;																											
 }

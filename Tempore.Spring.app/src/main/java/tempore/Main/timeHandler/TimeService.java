@@ -1,8 +1,11 @@
 package tempore.Main.timeHandler;
 
 
+import java.awt.List;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.jar.Attributes.Name;
 
 //Not done. Need Help.
 import org.springframework.http.ResponseEntity;
@@ -14,10 +17,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import sun.awt.SunHints.LCDContrastKey;
 import tempore.Main.timeHandler.model.Location;
-
+import tempore.Main.timeHandler.model.Trip;
+@JsonDeserialize (as = SlResponse.class)
 @Service
 public class TimeService implements TimeInterface {
 	
@@ -46,18 +51,30 @@ public class TimeService implements TimeInterface {
 		ResponseEntity<String> response = restTemplate.getForEntity(requestURL, String.class);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = null;
+		
 		try {
 			root = mapper.readTree(response.getBody());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JsonNode name = root.path("Trip");
-		if(name.isArray()) {
-			
+		JsonNode names = root.path("Trip");
+		
+		if(names.isArray()) {
+			System.out.println("Started if statement");
+			for(JsonNode node: names) {
+				JsonNode leglist = node.path("LegList");
+				System.out.println(leglist.toString());
+//				if(leglist.isArray()) {
+//					for(JsonNode LegNode : leglist) {
+//						JsonNode leg = LegNode.path("Leg");
+//						System.out.println(leg.toString());
+//					}
+//				}
+			}
 		}
-		System.out.println(name);
-		System.out.println(name.asText());
+		System.out.println(names.toString());
+		System.out.println(names.asText());
 		ResponseEntity<SlResponse> test = restTemplate.getForEntity(requestURL, SlResponse.class);
 		System.out.println("Test" + test.getBody().getTrip());
 		SlResponse sl = restTemplate.
@@ -79,9 +96,7 @@ public class TimeService implements TimeInterface {
 		
 	}
 	
-	public static void main(String[] args) {
-		System.out.println("Baj9s");
-	}
+	
 	
 	
 }
