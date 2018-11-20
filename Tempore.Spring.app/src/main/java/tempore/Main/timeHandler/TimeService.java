@@ -1,12 +1,13 @@
 package tempore.Main.timeHandler;
 
 
-import java.awt.List;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.jar.Attributes.Name;
 
+import org.hibernate.loader.plan.build.spi.LoadPlanBuildingAssociationVisitationStrategy;
 //Not done. Need Help.
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import sun.awt.SunHints.LCDContrastKey;
+import tempore.Main.timeHandler.model.Leg;
 import tempore.Main.timeHandler.model.Location;
 import tempore.Main.timeHandler.model.Trip;
 @JsonDeserialize (as = SlResponse.class)
@@ -59,32 +61,46 @@ public class TimeService implements TimeInterface {
 			e.printStackTrace();
 		}
 		JsonNode names = root.path("Trip");
-		
+		SlResponse slResponse = new SlResponse();
+		Trip trip = new Trip();
+		List<Leg> legsArray = new ArrayList<>();
+		Location Orgin = new Location();
+		Location Destination = new Location();
 		if(names.isArray()) {
 			System.out.println("Started if statement");
 			for(JsonNode node: names) {
 				JsonNode leglist = node.path("LegList");
 				System.out.println(leglist.toString());
-//				if(leglist.isArray()) {
-//					for(JsonNode LegNode : leglist) {
-//						JsonNode leg = LegNode.path("Leg");
-//						System.out.println(leg.toString());
-//					}
-//				}
+				trip.setLegList(leglist);
+				if(leglist.isObject()) {
+					JsonNode legs = leglist.path("Leg");
+					for(JsonNode leg : legs) {
+						//System.out.println(leg.toString());
+						JsonNode orginNode = leg.get("Origin");
+						JsonNode destinNode = leg.get("Destination");
+						System.out.println("Name: "+orginNode.get("name").textValue());
+						System.out.println("id: "+orginNode.get("id").textValue());
+						System.out.println("Time: "+orginNode.get("time").textValue());
+						System.out.println("Date: "+orginNode.get("date").textValue());
+						Orgin.setName(orginNode.get("name").textValue());
+					}
+				}
 			}
 		}
-		System.out.println(names.toString());
-		System.out.println(names.asText());
-		ResponseEntity<SlResponse> test = restTemplate.getForEntity(requestURL, SlResponse.class);
-		System.out.println("Test" + test.getBody().getTrip());
-		SlResponse sl = restTemplate.
-				getForObject(requestURL,
-				SlResponse.class);
-		System.out.println(sl);
-		System.out.println(sl.getTrip());
-		System.out.println(response);
-		System.out.println(response.hasBody());
-		System.out.println(response.getBody());
+		//trip.setLegList(leglist);
+		slResponse.setTrip(trip);
+//		System.out.println(names.toString());
+//		System.out.println(names.asText());
+//		ResponseEntity<SlResponse> test = restTemplate.getForEntity(requestURL, SlResponse.class);
+//		System.out.println("Test" + test.getBody().getTrip());
+//		SlResponse sl = restTemplate.
+//				getForObject(requestURL,
+//				SlResponse.class);
+//		System.out.println(sl);
+//		System.out.println(sl.getTrip());
+//		System.out.println(response);
+//		System.out.println(response.hasBody());
+//		System.out.println(response.getBody());
 		//SlResponse slResponse = response.getBody();
 		//System.out.println(slResponse.getTrip());
 		return response;

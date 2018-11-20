@@ -12,9 +12,10 @@ import lombok.Getter;
 import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown=false)
 @Getter
-@Setter
-public class Trip implements Serializable {
-	
-	public ArrayList<JsonNode> legList;
 
+public class Trip implements Serializable {
+	public JsonNode legList;
+	public void setLegList(JsonNode legList) {
+		this.legList = legList;
+	}
 }
