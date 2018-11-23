@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.jar.Attributes.Name;
 
+import org.hibernate.dialect.pagination.LegacyFirstLimitHandler;
 import org.hibernate.loader.plan.build.spi.LoadPlanBuildingAssociationVisitationStrategy;
+import org.springframework.data.jpa.repository.query.PartTreeJpaQuery;
 //Not done. Need Help.
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,10 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
-import sun.awt.SunHints.LCDContrastKey;
 import tempore.Main.timeHandler.model.Leg;
+import tempore.Main.timeHandler.model.Leglist;
 import tempore.Main.timeHandler.model.Location;
 import tempore.Main.timeHandler.model.Trip;
 @JsonDeserialize (as = SlResponse.class)
@@ -45,9 +48,9 @@ public class TimeService implements TimeInterface {
 		//retrunResp.setTrip(slResp.getBody());//Problem
 		//retrunResp.getTrip();
 		getResponse(startLocation,endLocation);
-		return null;		
+		return null ;		
 	}
-	protected ResponseEntity<String> getResponse(Location start, Location end) {
+	protected Location getResponse(Location start, Location end) {
 		String requestURL = SL_URL+SL_LANG+Orgin_ID_Latitude+Destination_ID_Parmeter;
 		System.out.println(requestURL);
 		ResponseEntity<String> response = restTemplate.getForEntity(requestURL, String.class);
@@ -62,7 +65,8 @@ public class TimeService implements TimeInterface {
 		}
 		JsonNode names = root.path("Trip");
 		SlResponse slResponse = new SlResponse();
-		Trip trip = new Trip();
+		Trip trip = new Trip(); 
+//		Leglist  legsArray= new Leglist();
 		List<Leg> legsArray = new ArrayList<>();
 		Location Orgin = new Location();
 		Location Destination = new Location();
@@ -74,20 +78,25 @@ public class TimeService implements TimeInterface {
 				trip.setLegList(leglist);
 				if(leglist.isObject()) {
 					JsonNode legs = leglist.path("Leg");
-					for(JsonNode leg : legs) {
-						//System.out.println(leg.toString());
-						JsonNode orginNode = leg.get("Origin");
-						JsonNode destinNode = leg.get("Destination");
-						System.out.println("Name: "+orginNode.get("name").textValue());
-						System.out.println("id: "+orginNode.get("id").textValue());
-						System.out.println("Time: "+orginNode.get("time").textValue());
-						System.out.println("Date: "+orginNode.get("date").textValue());
-						Orgin.setName(orginNode.get("name").textValue());
-					}
+						for(JsonNode leg : legs) {
+							JsonNode product = leg.get("Product");
+							//System.out.println(leg.toString());
+							JsonNode orginNode = leg.get("Origin");
+							JsonNode destinNode = leg.get("Destination");
+							Orgin.setName(orginNode.get("name").textValue());
+							Orgin.setTime(orginNode.get("time").textValue());
+							Orgin.setDate(orginNode.get("date").textValue());
+							Orgin.setBussNum(product.get("line").textValue());
+							Orgin.setTrack(leg.get("direction").textValue());
+							System.out.println(Orgin.getName()+"\n Tid: "+Orgin.getTime() +"\n Datum:"+ Orgin.getDate()
+							+"\n Buss:"+ Orgin.getBussNum()+"\n Mot:"+ Orgin.getTrack());
+						}
+					
 				}
 			}
 		}
-		//trip.setLegList(leglist);
+		
+		
 		slResponse.setTrip(trip);
 //		System.out.println(names.toString());
 //		System.out.println(names.asText());
@@ -103,7 +112,7 @@ public class TimeService implements TimeInterface {
 //		System.out.println(response.getBody());
 		//SlResponse slResponse = response.getBody();
 		//System.out.println(slResponse.getTrip());
-		return response;
+		return getResponse(Orgin, Destination);
 	}
 	public TimeService() {
 		

@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: Tempore
 Implementation-Version: 1.3.5-SNAPSHOT
-Built-By: Scottalm
+Built-By: Scott
 Implementation-Vendor-Id: Tempore
-Build-Jdk: 1.8.0_25
+Build-Jdk: 1.8.0_181
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/Tempore.Spring.app
 Created-By: Maven Integration for Eclipse

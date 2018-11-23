@@ -17,5 +17,6 @@ public class Location implements Serializable{
 	public String time;
 	public String date;
 	public String track;
+	public String BussNum;
 	
 }
