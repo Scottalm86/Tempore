@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
+import tempore.Main.personRegister.PersonRepository;
 import tempore.Main.timeHandler.model.Leg;
 import tempore.Main.timeHandler.model.Leglist;
 import tempore.Main.timeHandler.model.Location;
@@ -30,13 +31,12 @@ import tempore.Main.timeHandler.model.Trip;
 @JsonDeserialize (as = SlResponse.class)
 @Service
 public class TimeService implements TimeInterface {
-	
 	private final static String SL_URL = 
 			"https://api.sl.se/api2/TravelplannerV3/trip.json?key=aa704a5c893c433f9c0a38c00371a300";
 	private final static String SL_LANG = "&lang=sv";
-	public String Orgin_ID_Latitude ="&originId=3814";
+	public String Orgin_ID_Latitude ="&originId=";
 	public String Orgin_ID_Num;
-	public String Destination_ID_Parmeter ="&destId=1319";
+	public String Destination_ID_Parmeter ="&destId=";
 	public String Dest_Num;
 	RestTemplate restTemplate = new RestTemplate();
 	@Override
@@ -51,7 +51,8 @@ public class TimeService implements TimeInterface {
 		return null ;		
 	}
 	protected Location getResponse(Location start, Location end) {
-		String requestURL = SL_URL+SL_LANG+Orgin_ID_Latitude+Destination_ID_Parmeter;
+		
+		String requestURL = SL_URL+SL_LANG+Orgin_ID_Latitude+start+Destination_ID_Parmeter+end;
 		System.out.println(requestURL);
 		ResponseEntity<String> response = restTemplate.getForEntity(requestURL, String.class);
 		ObjectMapper mapper = new ObjectMapper();

@@ -11,15 +11,21 @@ public class Person {
 	private Long id;
 	private String personName;
 	private String personAdress;
+	private String startTime;
 	
+	
+	
+
+
 	public Person() {}
 	
 	
-	public Person(Long id,String personName, String personAdress) {
+	public Person(Long id,String personName, String personAdress,String startTime) {
 		super();
 		this.id = id;
 		this.personName = personName;
 		this.personAdress = personAdress;
+		this.startTime = startTime;
 	}
 	public String getPersonName() {
 		return personName;
@@ -38,6 +44,12 @@ public class Person {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
 	

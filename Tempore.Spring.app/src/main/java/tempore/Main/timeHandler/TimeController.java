@@ -15,8 +15,8 @@ public class TimeController {
 		private TimeService timeService;
 		
 		@RequestMapping(path="/tja/time")
-		public Location getResponse() throws TimeoutExceptions {
-				return timeService.getResponse(null, null);
+		public SlResponse getResponse() throws TimeoutExceptions {
+				return timeService.findTravel(null, null, null);
 		}
 	
 }
