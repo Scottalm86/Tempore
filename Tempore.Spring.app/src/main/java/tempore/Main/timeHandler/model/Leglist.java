@@ -11,9 +11,9 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Getter 
 public class Leglist implements Serializable {
-	public JsonNode leg;
+	public ArrayList<JsonNode> leg;
 
-	public void setLeg(JsonNode legs) {
+	public void setLeg(ArrayList<JsonNode> legs) {
 		this.leg = legs;
 	}
 }

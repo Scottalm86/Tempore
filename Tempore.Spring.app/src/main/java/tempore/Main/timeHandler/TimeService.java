@@ -1,6 +1,7 @@
 package tempore.Main.timeHandler;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +14,9 @@ import org.springframework.data.jpa.repository.query.PartTreeJpaQuery;
 //Not done. Need Help.
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -24,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import tempore.Main.personRegister.PersonRepository;
+import tempore.Main.personRegister.PersonService;
 import tempore.Main.timeHandler.model.Leg;
 import tempore.Main.timeHandler.model.Leglist;
 import tempore.Main.timeHandler.model.Location;
@@ -31,15 +36,20 @@ import tempore.Main.timeHandler.model.Trip;
 @JsonDeserialize (as = SlResponse.class)
 @Service
 public class TimeService implements TimeInterface {
+	private PersonService personService;
 	private final static String SL_URL = 
 			"https://api.sl.se/api2/TravelplannerV3/trip.json?key=aa704a5c893c433f9c0a38c00371a300";
 	private final static String SL_LANG = "&lang=sv";
+	public String searchForArrival = "&searchForArrival=1";
+	public String getTimeArrival="&time=";
 	public String Orgin_ID_Latitude ="&originId=";
 	public String Orgin_ID_Num;
 	public String Destination_ID_Parmeter ="&destId=";
 	public String Dest_Num;
 	RestTemplate restTemplate = new RestTemplate();
+	Location location = new Location();
 	@Override
+	@RequestMapping(value="/sl", method= RequestMethod.POST)
 	public SlResponse findTravel(Date starTime, Location startLocation, Location endLocation) 
 		throws TimeoutExceptions{
 		//ObjectMapper objectMapper = new ObjectMapper();
@@ -48,13 +58,16 @@ public class TimeService implements TimeInterface {
 		//retrunResp.setTrip(slResp.getBody());//Problem
 		//retrunResp.getTrip();
 		getResponse(startLocation,endLocation);
-		return null ;		
+		return findTravel(starTime, startLocation, endLocation);		
 	}
+	
 	protected Location getResponse(Location start, Location end) {
-		
-		String requestURL = SL_URL+SL_LANG+Orgin_ID_Latitude+start+Destination_ID_Parmeter+end;
+		location.setStart(9192);
+		location.setEnd(1002);
+		String requestURL = SL_URL+SL_LANG+searchForArrival+getTimeArrival+personService.getPerson()+Orgin_ID_Latitude+1002+Destination_ID_Parmeter+9192;
 		System.out.println(requestURL);
 		ResponseEntity<String> response = restTemplate.getForEntity(requestURL, String.class);
+		System.out.print(response);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = null;
 		
@@ -67,10 +80,11 @@ public class TimeService implements TimeInterface {
 		JsonNode names = root.path("Trip");
 		SlResponse slResponse = new SlResponse();
 		Trip trip = new Trip(); 
-//		Leglist  legsArray= new Leglist();
-		List<Leg> legsArray = new ArrayList<>();
+		Leglist  legsArray= new Leglist();
+//		List<Leg> legsArray = new ArrayList<>();
 		Location Orgin = new Location();
 		Location Destination = new Location();
+		System.out.println(names.isArray());
 		if(names.isArray()) {
 			System.out.println("Started if statement");
 			for(JsonNode node: names) {
@@ -79,7 +93,9 @@ public class TimeService implements TimeInterface {
 				trip.setLegList(leglist);
 				if(leglist.isObject()) {
 					JsonNode legs = leglist.path("Leg");
+					
 						for(JsonNode leg : legs) {
+//							legsArray.leg.add(legs);
 							JsonNode product = leg.get("Product");
 							//System.out.println(leg.toString());
 							JsonNode orginNode = leg.get("Origin");
@@ -89,6 +105,12 @@ public class TimeService implements TimeInterface {
 							Orgin.setDate(orginNode.get("date").textValue());
 							Orgin.setBussNum(product.get("line").textValue());
 							Orgin.setTrack(leg.get("direction").textValue());
+							try {
+								mapper.writeValue(new File("orgin.json"), Orgin.getTrack());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 							System.out.println(Orgin.getName()+"\n Tid: "+Orgin.getTime() +"\n Datum:"+ Orgin.getDate()
 							+"\n Buss:"+ Orgin.getBussNum()+"\n Mot:"+ Orgin.getTrack());
 						}
@@ -98,7 +120,7 @@ public class TimeService implements TimeInterface {
 		}
 		
 		
-		slResponse.setTrip(trip);
+//		slResponse.setTrip(trip);
 //		System.out.println(names.toString());
 //		System.out.println(names.asText());
 //		ResponseEntity<SlResponse> test = restTemplate.getForEntity(requestURL, SlResponse.class);
@@ -112,7 +134,7 @@ public class TimeService implements TimeInterface {
 //		System.out.println(response.hasBody());
 //		System.out.println(response.getBody());
 		//SlResponse slResponse = response.getBody();
-		//System.out.println(slResponse.getTrip());
+//		System.out.println(slResponse.getTrip());
 		return getResponse(Orgin, Destination);
 	}
 	public TimeService() {

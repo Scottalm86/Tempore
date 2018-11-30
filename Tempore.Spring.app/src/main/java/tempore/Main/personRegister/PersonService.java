@@ -26,6 +26,7 @@ public class PersonService {
 		return personRepository.findById(id);
 		
 	}
+	
 //Add a Person to DB
 	public void addPerson(Person person) {
 		personRepository.save(person);
